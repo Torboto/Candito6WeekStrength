@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5329C8081C937B7900C93A03 /* WeekViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5329C8071C937B7900C93A03 /* WeekViewController.swift */; };
+		5329C80C1C938A2400C93A03 /* Week1.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5329C80B1C938A2400C93A03 /* Week1.xib */; };
+		5329C80E1C94E90300C93A03 /* WorkoutPlan.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5329C80D1C94E90300C93A03 /* WorkoutPlan.swift */; };
 		53DF6BA51C7AAD5C00A3AB9C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53DF6BA41C7AAD5C00A3AB9C /* AppDelegate.swift */; };
 		53DF6BA71C7AAD5C00A3AB9C /* SetupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53DF6BA61C7AAD5C00A3AB9C /* SetupViewController.swift */; };
 		53DF6BAA1C7AAD5C00A3AB9C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 53DF6BA81C7AAD5C00A3AB9C /* Main.storyboard */; };
@@ -14,6 +17,7 @@
 		53DF6BAF1C7AAD5C00A3AB9C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 53DF6BAD1C7AAD5C00A3AB9C /* LaunchScreen.storyboard */; };
 		53DF6BBA1C7AAD5D00A3AB9C /* Candito_6_Week_StrengthTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53DF6BB91C7AAD5D00A3AB9C /* Candito_6_Week_StrengthTests.swift */; };
 		53DF6BC51C7AAD5D00A3AB9C /* Candito_6_Week_StrengthUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53DF6BC41C7AAD5D00A3AB9C /* Candito_6_Week_StrengthUITests.swift */; };
+		645B821787429DC4EC825FBB /* Pods_Candito_6_Week_Strength.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9E9A1013071F19564726EC91 /* Pods_Candito_6_Week_Strength.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -34,6 +38,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0ADEC5E70EA1C58851FC6261 /* Pods-Candito 6 Week Strength.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Candito 6 Week Strength.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Candito 6 Week Strength/Pods-Candito 6 Week Strength.debug.xcconfig"; sourceTree = "<group>"; };
+		5329C8071C937B7900C93A03 /* WeekViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WeekViewController.swift; sourceTree = "<group>"; };
+		5329C80B1C938A2400C93A03 /* Week1.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = Week1.xib; sourceTree = "<group>"; };
+		5329C80D1C94E90300C93A03 /* WorkoutPlan.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WorkoutPlan.swift; sourceTree = "<group>"; };
 		53DF6BA11C7AAD5C00A3AB9C /* Candito 6 Week Strength.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Candito 6 Week Strength.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		53DF6BA41C7AAD5C00A3AB9C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		53DF6BA61C7AAD5C00A3AB9C /* SetupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetupViewController.swift; sourceTree = "<group>"; };
@@ -47,6 +55,10 @@
 		53DF6BC01C7AAD5D00A3AB9C /* Candito 6 Week StrengthUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Candito 6 Week StrengthUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		53DF6BC41C7AAD5D00A3AB9C /* Candito_6_Week_StrengthUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Candito_6_Week_StrengthUITests.swift; sourceTree = "<group>"; };
 		53DF6BC61C7AAD5D00A3AB9C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		5FF7AEA9C2930EFF1ED367D4 /* libPods-Candito 6 Week StrengthUITests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Candito 6 Week StrengthUITests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		66B938214D09E2E99DD84BC1 /* Pods-Candito 6 Week Strength.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Candito 6 Week Strength.release.xcconfig"; path = "Pods/Target Support Files/Pods-Candito 6 Week Strength/Pods-Candito 6 Week Strength.release.xcconfig"; sourceTree = "<group>"; };
+		9E9A1013071F19564726EC91 /* Pods_Candito_6_Week_Strength.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Candito_6_Week_Strength.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		EFAAE9FC6C11573EBD55F10C /* libPods-Candito 6 Week StrengthTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Candito 6 Week StrengthTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -54,6 +66,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				645B821787429DC4EC825FBB /* Pods_Candito_6_Week_Strength.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -74,6 +87,16 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		2376A20DBE0F996DD82E42F2 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				9E9A1013071F19564726EC91 /* Pods_Candito_6_Week_Strength.framework */,
+				EFAAE9FC6C11573EBD55F10C /* libPods-Candito 6 Week StrengthTests.a */,
+				5FF7AEA9C2930EFF1ED367D4 /* libPods-Candito 6 Week StrengthUITests.a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		53DF6B981C7AAD5C00A3AB9C = {
 			isa = PBXGroup;
 			children = (
@@ -81,6 +104,8 @@
 				53DF6BB81C7AAD5D00A3AB9C /* Candito 6 Week StrengthTests */,
 				53DF6BC31C7AAD5D00A3AB9C /* Candito 6 Week StrengthUITests */,
 				53DF6BA21C7AAD5C00A3AB9C /* Products */,
+				85CF448D2115BB265E753D6B /* Pods */,
+				2376A20DBE0F996DD82E42F2 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -103,6 +128,9 @@
 				53DF6BAB1C7AAD5C00A3AB9C /* Assets.xcassets */,
 				53DF6BAD1C7AAD5C00A3AB9C /* LaunchScreen.storyboard */,
 				53DF6BB01C7AAD5C00A3AB9C /* Info.plist */,
+				5329C8071C937B7900C93A03 /* WeekViewController.swift */,
+				5329C80B1C938A2400C93A03 /* Week1.xib */,
+				5329C80D1C94E90300C93A03 /* WorkoutPlan.swift */,
 			);
 			path = "Candito 6 Week Strength";
 			sourceTree = "<group>";
@@ -125,6 +153,15 @@
 			path = "Candito 6 Week StrengthUITests";
 			sourceTree = "<group>";
 		};
+		85CF448D2115BB265E753D6B /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				0ADEC5E70EA1C58851FC6261 /* Pods-Candito 6 Week Strength.debug.xcconfig */,
+				66B938214D09E2E99DD84BC1 /* Pods-Candito 6 Week Strength.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -132,9 +169,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 53DF6BC91C7AAD5D00A3AB9C /* Build configuration list for PBXNativeTarget "Candito 6 Week Strength" */;
 			buildPhases = (
+				E6F0F4BF44C1B95A96A16722 /* 📦 Check Pods Manifest.lock */,
 				53DF6B9D1C7AAD5C00A3AB9C /* Sources */,
 				53DF6B9E1C7AAD5C00A3AB9C /* Frameworks */,
 				53DF6B9F1C7AAD5C00A3AB9C /* Resources */,
+				5C29A0BA604FBEDC74FFB299 /* 📦 Embed Pods Frameworks */,
+				EDBEA6D7857D58705EA49BA5 /* 📦 Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -149,9 +189,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 53DF6BCC1C7AAD5D00A3AB9C /* Build configuration list for PBXNativeTarget "Candito 6 Week StrengthTests" */;
 			buildPhases = (
+				D2C77675E20F3DC7C93CC441 /* 📦 Check Pods Manifest.lock */,
 				53DF6BB11C7AAD5D00A3AB9C /* Sources */,
 				53DF6BB21C7AAD5D00A3AB9C /* Frameworks */,
 				53DF6BB31C7AAD5D00A3AB9C /* Resources */,
+				11411456FECE939C8F3B9EDE /* 📦 Embed Pods Frameworks */,
+				84BAB5636F3DFE5DA5A1D128 /* 📦 Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -167,9 +210,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 53DF6BCF1C7AAD5D00A3AB9C /* Build configuration list for PBXNativeTarget "Candito 6 Week StrengthUITests" */;
 			buildPhases = (
+				69D83CCECA14792C84DEE10E /* 📦 Check Pods Manifest.lock */,
 				53DF6BBC1C7AAD5D00A3AB9C /* Sources */,
 				53DF6BBD1C7AAD5D00A3AB9C /* Frameworks */,
 				53DF6BBE1C7AAD5D00A3AB9C /* Resources */,
+				ACBDA0BA0B440705E629B251 /* 📦 Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -233,6 +278,7 @@
 				53DF6BAF1C7AAD5C00A3AB9C /* LaunchScreen.storyboard in Resources */,
 				53DF6BAC1C7AAD5C00A3AB9C /* Assets.xcassets in Resources */,
 				53DF6BAA1C7AAD5C00A3AB9C /* Main.storyboard in Resources */,
+				5329C80C1C938A2400C93A03 /* Week1.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -252,12 +298,137 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		11411456FECE939C8F3B9EDE /* 📦 Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "📦 Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Candito 6 Week StrengthTests/Pods-Candito 6 Week StrengthTests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		5C29A0BA604FBEDC74FFB299 /* 📦 Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "📦 Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Candito 6 Week Strength/Pods-Candito 6 Week Strength-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		69D83CCECA14792C84DEE10E /* 📦 Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "📦 Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		84BAB5636F3DFE5DA5A1D128 /* 📦 Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "📦 Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Candito 6 Week StrengthTests/Pods-Candito 6 Week StrengthTests-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		ACBDA0BA0B440705E629B251 /* 📦 Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "📦 Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Candito 6 Week StrengthUITests/Pods-Candito 6 Week StrengthUITests-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		D2C77675E20F3DC7C93CC441 /* 📦 Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "📦 Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		E6F0F4BF44C1B95A96A16722 /* 📦 Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "📦 Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		EDBEA6D7857D58705EA49BA5 /* 📦 Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "📦 Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Candito 6 Week Strength/Pods-Candito 6 Week Strength-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		53DF6B9D1C7AAD5C00A3AB9C /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 				53DF6BA71C7AAD5C00A3AB9C /* SetupViewController.swift in Sources */,
+				5329C8081C937B7900C93A03 /* WeekViewController.swift in Sources */,
+				5329C80E1C94E90300C93A03 /* WorkoutPlan.swift in Sources */,
 				53DF6BA51C7AAD5C00A3AB9C /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -398,6 +569,7 @@
 		};
 		53DF6BCA1C7AAD5D00A3AB9C /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 0ADEC5E70EA1C58851FC6261 /* Pods-Candito 6 Week Strength.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
@@ -414,6 +586,7 @@
 		};
 		53DF6BCB1C7AAD5D00A3AB9C /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 66B938214D09E2E99DD84BC1 /* Pods-Candito 6 Week Strength.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";

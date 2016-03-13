@@ -11,11 +11,37 @@ import UIKit
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
+    // Trailing question marks means value is optional, could be nil
     var window: UIWindow?
+    var navController: UINavigationController?
 
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         // Override point for customization after application launch.
+        let setupViewController = SetupViewController()
+        let week1ViewController = WeekViewController()
+        
+        navController = UINavigationController()
+        navController?.setNavigationBarHidden(true, animated: false)
+        navController?.viewControllers = [setupViewController]
+        
+        //let viewController = UIViewController()
+        //self.navController!.pushViewController(viewController, animated: false)
+        
+        //self.window = UIWindow(frame: UIScreen.mainScreen().bounds)
+        // TODO LEARN
+        // Forced unwrapping because window may be nil as it hasn't rendered?
+        //self.window!.rootViewController = navController
+        //self.window!.backgroundColor = UIColor.whiteColor()
+        //self.window!.makeKeyAndVisible()
+        
+        window = UIWindow(frame: UIScreen.mainScreen().bounds)
+        window?.backgroundColor = UIColor.whiteColor()
+        // TODO Logic to pick which view is root at statup. If NSUSER data exists, go to WeekViewController.
+        window?.rootViewController = navController
+        // TODO Is this where I pick what I present?
+        window?.makeKeyAndVisible()
+        
         return true
     }
 
