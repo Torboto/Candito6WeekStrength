@@ -19,7 +19,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         // Override point for customization after application launch.
         let setupViewController = SetupViewController()
-        let week1ViewController = WeekViewController()
+        //let week1ViewController = WeekViewController()
+        let todaysWorkoutViewController = TodaysWorkoutViewController()
         
         navController = UINavigationController()
         navController?.setNavigationBarHidden(true, animated: false)

@@ -20,15 +20,6 @@ class SetupViewController: UIViewController, UITextFieldDelegate, ValidationDele
     let deadliftInput = UITextField()
     let startDateInput = UITextField()
     
-    enum defaultsKeys {
-        static let startDate = ""
-        static let weightUnit = "kg"
-        static let benchMax = ""
-        static let squatMax = ""
-        static let deadliftMax = ""
-        static let currentWeek = "Week1"
-    }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -194,90 +185,46 @@ class SetupViewController: UIViewController, UITextFieldDelegate, ValidationDele
             "createProgram": createProgram,
         ]
         
-        // Collect all constraints to send to the superview
-        //var allVisualFormatConstraints = [NSLayoutConstraint]()
-        //var allConstraints = [NSLayoutConstraint]()
-        let vtitleLabelC = NSLayoutConstraint.constraintsWithVisualFormat("V:|-20-[titleLabel]-20-[startDateLabel]", options:[], metrics: nil, views: views)
-        NSLayoutConstraint.activateConstraints(vtitleLabelC)
-        //allVisualFormatConstraints += vTitleC
+        let vInputC = NSLayoutConstraint.constraintsWithVisualFormat(
+            "V:|-20-[titleLabel]-40-[startDateLabel][startDateInput]-20-[weightUnitInput]-20-[benchLabel][benchInput]-20-[squatLabel][squatInput]-20-[deadliftLabel][deadliftInput]", options:[], metrics: nil, views: views)
+        NSLayoutConstraint.activateConstraints(vInputC)
         let xtitleLabelC = NSLayoutConstraint(item: titleLabel, attribute: .CenterX, relatedBy: .Equal, toItem: self.view, attribute: .CenterX, multiplier: 1, constant: 0)
         self.view.addConstraint(xtitleLabelC)
-        //let horizontalConstraints = NSLayoutConstraint.constraintsWithVisualFormat(htitleFS, options:[], metrics: nil, views: views)
-        //NSLayoutConstraint.activateConstraints(horizontalConstraints)
-        //self.view.addConstraints(allConstraints)
-        //NSLayoutConstraint.activateConstraints(allVisualFormatConstraints)
         
-        let vstartDateLabelC = NSLayoutConstraint.constraintsWithVisualFormat(
-            "V:[startDateLabel][startDateInput]", options:[], metrics: nil, views: views)
-        NSLayoutConstraint.activateConstraints(vstartDateLabelC)
         let xstartDateLabelC = NSLayoutConstraint(item: startDateLabel, attribute: .CenterX, relatedBy: .Equal, toItem: self.view, attribute: .CenterX, multiplier: 1, constant: 0)
         self.view.addConstraint(xstartDateLabelC)
 
-        let vstartDateInputC = NSLayoutConstraint.constraintsWithVisualFormat(
-            "V:[startDateInput]-20-[weightUnitInput]", options:[], metrics: nil, views: views)
-        NSLayoutConstraint.activateConstraints(vstartDateInputC)
         let hstartDateInputC = NSLayoutConstraint.constraintsWithVisualFormat(
             "H:|-[startDateInput]-|", options:[], metrics: nil, views: views)
         NSLayoutConstraint.activateConstraints(hstartDateInputC)
         let xstartDateInputC = NSLayoutConstraint(item: startDateInput, attribute: .CenterX, relatedBy: .Equal, toItem: self.view, attribute: .CenterX, multiplier: 1, constant: 0)
         self.view.addConstraint(xstartDateInputC)
         
-        let vweightUnitInputC = NSLayoutConstraint.constraintsWithVisualFormat(
-            "V:[weightUnitInput]-20-[benchLabel]", options:[], metrics: nil, views: views)
-        NSLayoutConstraint.activateConstraints(vweightUnitInputC)
         let hweightUnitInputC = NSLayoutConstraint.constraintsWithVisualFormat(
             "H:|-[weightUnitInput]-|", options:[], metrics: nil, views: views)
         NSLayoutConstraint.activateConstraints(hweightUnitInputC)
         let xweightUnitInputC = NSLayoutConstraint(item: weightUnitInput, attribute: .CenterX, relatedBy: .Equal, toItem: self.view, attribute: .CenterX, multiplier: 1, constant: 0)
         self.view.addConstraint(xweightUnitInputC)
         
-        let vbenchLabelC = NSLayoutConstraint.constraintsWithVisualFormat(
-            "V:[benchLabel][benchInput]", options:[], metrics: nil, views: views)
-        NSLayoutConstraint.activateConstraints(vbenchLabelC)
         let xbenchLabelC = NSLayoutConstraint(item: benchLabel, attribute: .CenterX, relatedBy: .Equal, toItem: self.view, attribute: .CenterX, multiplier: 1, constant: 0)
         self.view.addConstraint(xbenchLabelC)
 
-        let vbenchUnitLabelC = NSLayoutConstraint.constraintsWithVisualFormat(
-            "V:[benchLabel][benchUnitLabel]", options:[], metrics: nil, views: views)
-        NSLayoutConstraint.activateConstraints(vbenchUnitLabelC)
-        
-        let vbenchInputC = NSLayoutConstraint.constraintsWithVisualFormat(
-            "V:[benchInput]-20-[squatLabel]", options:[], metrics: nil, views: views)
-        NSLayoutConstraint.activateConstraints(vbenchInputC)
         let hbenchInputC = NSLayoutConstraint.constraintsWithVisualFormat(
             "H:|-[leftBenchSpacer]-[benchInput(75)]-[benchUnitLabel]-[rightBenchSpacer(==leftBenchSpacer)]-|", options: [.AlignAllBaseline], metrics: nil, views: views)
         NSLayoutConstraint.activateConstraints(hbenchInputC)
         
-        let vsquatLabelC = NSLayoutConstraint.constraintsWithVisualFormat(
-            "V:[squatLabel][squatInput]", options:[], metrics: nil, views: views)
-        NSLayoutConstraint.activateConstraints(vsquatLabelC)
         let xsquatLabelC = NSLayoutConstraint(item: squatLabel, attribute: .CenterX, relatedBy: .Equal, toItem: self.view, attribute: .CenterX, multiplier: 1, constant: 0)
         self.view.addConstraint(xsquatLabelC)
         
-        let vsquatUnitLabelC = NSLayoutConstraint.constraintsWithVisualFormat(
-            "V:[squatLabel][squatUnitLabel]", options:[], metrics: nil, views: views)
-        NSLayoutConstraint.activateConstraints(vsquatUnitLabelC)
         
-        let vsquatInputC = NSLayoutConstraint.constraintsWithVisualFormat(
-            "V:[squatInput]-20-[deadliftLabel]", options:[], metrics: nil, views: views)
-        NSLayoutConstraint.activateConstraints(vsquatInputC)
         let hsquatInputC = NSLayoutConstraint.constraintsWithVisualFormat(
             "H:|-[leftSquatSpacer]-[squatInput(75)]-[squatUnitLabel]-[rightSquatSpacer(==leftSquatSpacer)]-|", options: [.AlignAllBaseline], metrics: nil, views: views)
         NSLayoutConstraint.activateConstraints(hsquatInputC)
         
-        let vdeadliftLabelC = NSLayoutConstraint.constraintsWithVisualFormat(
-            "V:[deadliftLabel][deadliftInput]", options:[], metrics: nil, views: views)
-        NSLayoutConstraint.activateConstraints(vdeadliftLabelC)
         let xdeadliftLabelC = NSLayoutConstraint(item: deadliftLabel, attribute: .CenterX, relatedBy: .Equal, toItem: self.view, attribute: .CenterX, multiplier: 1, constant: 0)
         self.view.addConstraint(xdeadliftLabelC)
         
-        //let vdeadliftUnitLabelC = NSLayoutConstraint.constraintsWithVisualFormat(
-        //    "V:[deadliftLabel]-3-[deadliftUnitLabel]", options:[], metrics: nil, views: views)
-        //NSLayoutConstraint.activateConstraints(vdeadliftUnitLabelC)
         
-        //let vdeadliftInputC = NSLayoutConstraint.constraintsWithVisualFormat(
-        //    "V:[deadliftInput]-20-[deadliftLabel]", options:[], metrics: nil, views: views)
-        //NSLayoutConstraint.activateConstraints(vdeadliftInputC)
         let hdeadliftInputC = NSLayoutConstraint.constraintsWithVisualFormat(
             "H:|-[leftDeadliftSpacer]-[deadliftInput(75)]-[deadliftUnitLabel]-[rightDeadliftSpacer(==leftDeadliftSpacer)]-|", options: [.AlignAllBaseline], metrics: nil, views: views)
         NSLayoutConstraint.activateConstraints(hdeadliftInputC)
@@ -290,6 +237,12 @@ class SetupViewController: UIViewController, UITextFieldDelegate, ValidationDele
         NSLayoutConstraint.activateConstraints(hcreateProgramC)
         let xcreateProgramC = NSLayoutConstraint(item: createProgram, attribute: .CenterX, relatedBy: .Equal, toItem: self.view, attribute: .CenterX, multiplier: 1, constant: 0)
         self.view.addConstraint(xcreateProgramC)
+    
+        //TEST
+        benchInput.text = "100"
+        squatInput.text = "100"
+        deadliftInput.text = "100"
+    
     }
     
     func weightUnitChanged(sender: UISegmentedControl) {
@@ -363,33 +316,23 @@ class SetupViewController: UIViewController, UITextFieldDelegate, ValidationDele
         // Store simple data locally in User Defaults
         let defaults = NSUserDefaults.standardUserDefaults()
         
-        defaults.setValue(startDateInput.text, forKey: defaultsKeys.startDate)
+        let dateFormat = NSDateFormatter()
+        dateFormat.dateStyle = NSDateFormatterStyle.FullStyle
+        let startDate = dateFormat.dateFromString(startDateInput.text!)
+        
+        defaults.setObject(startDate, forKey: defaultsKeys.startDate)
         defaults.setValue(benchUnitLabel.text , forKey: defaultsKeys.weightUnit)
-        defaults.setValue(benchInput.text , forKey: defaultsKeys.benchMax)
-        defaults.setValue(squatInput.text , forKey: defaultsKeys.squatMax)
-        defaults.setValue(deadliftInput.text , forKey: defaultsKeys.deadliftMax)
+        defaults.setInteger(Int(benchInput.text!)!, forKey: defaultsKeys.benchMax)
+        defaults.setInteger(Int(squatInput.text!)!, forKey: defaultsKeys.squatMax)
+        defaults.setInteger(Int(deadliftInput.text!)!, forKey: defaultsKeys.deadliftMax)
         
         defaults.synchronize()
-        print(NSUserDefaults.standardUserDefaults())
+        print((NSUserDefaults.standardUserDefaults()).dynamicType)
         
-        //self.performSegueWithIdentifier("WeekSegue", sender: self)
-        let weekViewController = WeekViewController()
-        self.navigationController?.pushViewController(weekViewController, animated: false)
-            //.instantiateViewControllerWithIdentifier("WeekViewController"))! as UIViewController
+        let todaysWorkoutViewController = TodaysWorkoutViewController()
+        //let todaysWorkoutViewController = WorkoutTableViewController()
+        self.navigationController?.pushViewController(todaysWorkoutViewController, animated: false)
     }
-    
-    //override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-    //    if segue.identifier == "WeekSegue"
-    //    {
-    //        if let week1ViewController = segue.destinationViewController as? Week1ViewController {
-    //            week1ViewController.startDate = self.startDateInput.text
-    //            week1ViewController.weightUnit = self.benchUnitLabel.text
-    //            week1ViewController.benchMax = self.benchInput.text
-    //            week1ViewController.squatMax = self.squatInput.text
-    //            week1ViewController.deadliftMax = self.deadliftInput.text
-    //        }
-    //    }
-    //}
     
     // Hide keyboard on tap outside input
     func userTappedBackground(sender: AnyObject) {

@@ -17,7 +17,7 @@ class WeekViewController: UIViewController {
         static let benchMax = ""
         static let squatMax = ""
         static let deadliftMax = ""
-        static let currentWeek = "Week1"
+        static let currentWeek = ""
     }
     
     override func viewDidLoad() {
