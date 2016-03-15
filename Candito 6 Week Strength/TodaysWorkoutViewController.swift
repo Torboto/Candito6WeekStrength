@@ -16,9 +16,10 @@ class TodaysWorkoutViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        navigationController?.setNavigationBarHidden(false, animated: false)
-        navigationController?.navigationItem.setHidesBackButton(true, animated: false)
-        navigationController?.title = plan.TodaysWorkout!.Type
+        self.navigationController?.setNavigationBarHidden(false, animated: false)
+        self.navigationController?.navigationItem.setHidesBackButton(true, animated: false)
+        self.navigationController?.navigationItem.hidesBackButton = true
+        self.navigationController?.navigationItem.title = plan.TodaysWorkout!.Type
 
         let titleLabel = UILabel()
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -40,12 +41,14 @@ class TodaysWorkoutViewController: UIViewController {
         
         let workoutTableViewController = WorkoutTableViewController()
         let workoutTableView = workoutTableViewController.tableView
+        self.addChildViewController(workoutTableViewController)
         workoutTableView.translatesAutoresizingMaskIntoConstraints = false
+        //workoutTableView.frame = CGRect(x: 0, y: 160, width: view.frame.width, height: view.frame.height)
         workoutTableView.scrollEnabled = false
-        workoutTableView.tableHeaderView = titleLabel
-        workoutTableView.tableFooterView = viewWeek
         workoutTableView.sizeToFit()
         self.view.addSubview(workoutTableView)
+        workoutTableView.tableHeaderView = titleLabel
+        workoutTableView.reloadData()
         
 
         
@@ -59,12 +62,14 @@ class TodaysWorkoutViewController: UIViewController {
         
         // Collect all constraints to send to the superview
         
-        //let vtitleLabelC = NSLayoutConstraint.constraintsWithVisualFormat("V:|-70-[titleLabel][workoutTableView]-20-[viewWeek]", options:[], metrics: nil, views: views)
+        //let vtitleLabelC = NSLayoutConstraint.constraintsWithVisualFormat("V:|-70-[titleLabel]", options:[], metrics: nil, views: views)
         //let vtitleLabelC = NSLayoutConstraint.constraintsWithVisualFormat("V:|-70-[workoutTableView]", options:[], metrics: nil, views: views)
         //NSLayoutConstraint.activateConstraints(vtitleLabelC)
         //let xtitleLabelC = NSLayoutConstraint(item: titleLabel, attribute: .CenterX, relatedBy: .Equal, toItem: self.view, attribute: .CenterX, multiplier: 1, constant: 0)
         //self.view.addConstraint(xtitleLabelC)
-        //
+        
+        //let hviewWeekC = NSLayoutConstraint.constraintsWithVisualFormat("V:[viewWeek]-10-|", options:[], metrics: nil, views: views)
+        //NSLayoutConstraint.activateConstraints(hviewWeekC)
         //let hworkoutTableViewC = NSLayoutConstraint.constraintsWithVisualFormat("H:|[workoutTableView]|", options:[], metrics: nil, views: views)
         //NSLayoutConstraint.activateConstraints(hworkoutTableViewC)
 

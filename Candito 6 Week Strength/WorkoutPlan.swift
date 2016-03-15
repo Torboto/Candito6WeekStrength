@@ -99,9 +99,10 @@ struct Plan {
         //IF((Inputs!B9="kg"),MROUND((Inputs!B13*0.8),2.5),MROUND((Inputs!B13*0.8),5))
         let squatSet = Set(Weight: calculateWeight(SquatMax, modifier: 0.8, weightUnit: WeightUnit), Reps: 6)
         let deadliftSet = Set(Weight: calculateWeight(DeadliftMax, modifier: 0.8, weightUnit: WeightUnit), Reps: 6)
+        let blankSet = Set(Weight: 0, Reps: 0)
         
         let exercise1 = Exercise(Name: "Squat", Sets: [squatSet, squatSet, squatSet, squatSet])
-        let exercise2 = Exercise(Name: "Deadlift", Sets: [deadliftSet, deadliftSet])
+        let exercise2 = Exercise(Name: "Deadlift", Sets: [deadliftSet, deadliftSet, blankSet, blankSet])
         let day1 = Workout(Date: StartDate, Type: "Muscular Conditioning", Exercises: [exercise1, exercise2])
         
         let week = WorkoutWeek(Name: "Week 1\nMuscular Conditioning", Workouts: [day1])
