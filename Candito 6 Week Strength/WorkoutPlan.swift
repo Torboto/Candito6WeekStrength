@@ -25,7 +25,7 @@ enum defaultsKeys {
 // Would be presented as 100 x6
 struct Set {
     var Weight = Int()
-    var Reps = Int()
+    var Reps = String()
 }
 
 // Exercises contain exerise name/description and set information
@@ -48,6 +48,7 @@ struct Workout {
 // Ex ["Hypertrophy", Workouts[]]
 struct WorkoutWeek {
     var Name = String()
+    var Type = String()
     var Workouts = Array<Workout>()
 }
 
@@ -81,7 +82,7 @@ struct Plan {
         SquatMax = defaults.integerForKey(defaultsKeys.squatMax)
         DeadliftMax = defaults.integerForKey(defaultsKeys.deadliftMax)
         
-        Week1 = generateWeek1()
+        generateWeek1()
         //generateWeek2()
         //generateWeek3()
         //generateWeek4()
@@ -91,20 +92,66 @@ struct Plan {
         getTodaysWorkout()
     }
     
-    // Calculates weights for Week 1 based on 1RM's
-    private mutating func generateWeek1() -> WorkoutWeek {
+    // Calculates weights for Week 1 based on 1RM's and builds plan
+    // Rest
+    private mutating func generateWeek1() {
+        let calendar = NSCalendar.currentCalendar()
+        var dayComponent = NSDateComponents()
+        let blankSet = Set(Weight: 0, Reps: "---")
+
         // Day 1
         //IF((Inputs!B9="kg"),MROUND((Inputs!B13*0.8),2.5),MROUND((Inputs!B13*0.8),5))
-        let squatSet = Set(Weight: calculateWeight(SquatMax, modifier: 0.8, weightUnit: WeightUnit), Reps: 6)
-        let deadliftSet = Set(Weight: calculateWeight(DeadliftMax, modifier: 0.8, weightUnit: WeightUnit), Reps: 6)
-        let blankSet = Set(Weight: 0, Reps: 0)
+        let squatSet80 = Set(Weight: calculateWeight(SquatMax, modifier: 0.8, weightUnit: WeightUnit), Reps: " x6")
+        let deadliftSet80 = Set(Weight: calculateWeight(DeadliftMax, modifier: 0.8, weightUnit: WeightUnit), Reps: " x6")
         
-        let exercise1 = Exercise(Name: "Squat", Sets: [squatSet, squatSet, squatSet, squatSet])
-        let exercise2 = Exercise(Name: "Deadlift", Sets: [deadliftSet, deadliftSet, blankSet, blankSet])
-        let day1 = Workout(Date: StartDate, Type: "Muscular Conditioning", Exercises: [exercise1, exercise2])
+        let exercise1Day1 = Exercise(Name: "Squat", Sets: [squatSet80, squatSet80, squatSet80, squatSet80])
+        let exercise2Day1 = Exercise(Name: "Deadlift", Sets: [deadliftSet80, deadliftSet80, blankSet, blankSet])
+        let day1 = Workout(Date: StartDate, Type: "Muscular Conditioning", Exercises: [exercise1Day1, exercise2Day1])
         
-        let week = WorkoutWeek(Name: "Week 1\nMuscular Conditioning", Workouts: [day1])
-        return week
+        // Day 2
+        dayComponent.day = 1;
+        var nextDate = calendar.dateByAddingComponents(dayComponent, toDate: StartDate, options: [])
+        let benchSet50 = Set(Weight: calculateWeight(BenchMax, modifier: 0.5, weightUnit: WeightUnit), Reps: " x10")
+        let benchSet675 = Set(Weight: calculateWeight(BenchMax, modifier: 0.675, weightUnit: WeightUnit), Reps: " x10")
+        let benchSet7 = Set(Weight: calculateWeight(BenchMax, modifier: 0.7, weightUnit: WeightUnit), Reps: " x8")
+        let benchSet775 = Set(Weight: calculateWeight(BenchMax, modifier: 0.775, weightUnit: WeightUnit), Reps: " x6")
+        
+        let exercise1Day2 = Exercise(Name: "Bench", Sets: [benchSet50, benchSet675, benchSet7, benchSet775])
+        let day2 = Workout(Date: nextDate!, Type: "Muscular Conditioning", Exercises: [exercise1Day2])
+        
+        // Day 3 - REST DAY
+        
+        // Day 4
+        // Same as day 2, but after a rest day
+        dayComponent.day = 3;
+        nextDate = calendar.dateByAddingComponents(dayComponent, toDate: StartDate, options: [])
+        
+        let day4 = Workout(Date: nextDate!, Type: "Muscular Conditioning", Exercises: [exercise1Day2])
+        
+        // Day 5
+        dayComponent.day += 4
+        nextDate = calendar.dateByAddingComponents(dayComponent, toDate: StartDate, options: [])
+        //IF((Inputs!B9="kg"),MROUND((Inputs!B13*0.8),2.5),MROUND((Inputs!B13*0.8),5))
+        let squatSet70 = Set(Weight: calculateWeight(SquatMax, modifier: 0.7, weightUnit: WeightUnit), Reps: " x8")
+        let deadliftSet70 = Set(Weight: calculateWeight(DeadliftMax, modifier: 0.7, weightUnit: WeightUnit), Reps: " x8")
+        
+        let exercise1Day4 = Exercise(Name: "Squat", Sets: [squatSet70, squatSet70, squatSet70, squatSet70])
+        let exercise2Day4 = Exercise(Name: "Deadlift", Sets: [deadliftSet70, deadliftSet70, blankSet, blankSet])
+        let day5 = Workout(Date: StartDate, Type: "Muscular Conditioning", Exercises: [exercise1Day4, exercise2Day4])
+        
+        // Day 6
+        dayComponent.day = 5;
+        nextDate = calendar.dateByAddingComponents(dayComponent, toDate: StartDate, options: [])
+        let benchSet80 = Set(Weight: calculateWeight(BenchMax, modifier: 0.8, weightUnit: WeightUnit), Reps: " xMR")
+        
+        let exercise1Day5 = Exercise(Name: "Bench", Sets: [benchSet80, blankSet, blankSet, blankSet])
+        let day6 = Workout(Date: nextDate!, Type: "Muscular Conditioning", Exercises: [exercise1Day5])
+        
+        // Day 7 - REST DAY
+        
+        let workouts = [day1, day2, day4, day5, day6]
+        let week = WorkoutWeek(Name: "Week 1", Type: "Muscular Conditioning", Workouts: workouts)
+        Week1 = week
     }
     mutating func getTodaysWorkout() {
         // Return first workout for now
@@ -131,6 +178,10 @@ struct Plan {
         //        default:
         //            break;
         //    }
+    }
+    
+    func getWorkoutWeek(weekNumber: Int) -> WorkoutWeek {
+        return Week1!
     }
     
 

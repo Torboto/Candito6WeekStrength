@@ -32,8 +32,8 @@ class SetupViewController: UIViewController, UITextFieldDelegate, ValidationDele
         // Declare elements
         let titleLabel = UILabel()
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
-        titleLabel.text = "Jonnie Candito's\n6 Week Strength Program"
-        titleLabel.numberOfLines = 2
+        titleLabel.text = "You-Can-Dito\nJonnie Candito's\n6 Week Strength Program"
+        titleLabel.numberOfLines = 3
         titleLabel.font = UIFont.boldSystemFontOfSize(30)
         titleLabel.textAlignment = .Center
         self.view.addSubview(titleLabel)
@@ -300,8 +300,8 @@ class SetupViewController: UIViewController, UITextFieldDelegate, ValidationDele
             field.layer.borderColor = UIColor.redColor().CGColor
             field.layer.borderWidth = 1
             field.layer.cornerRadius = 5
-            error.errorLabel?.text = error.errorMessage // works if you added labels
-            error.errorLabel?.hidden = false
+            //error.errorLabel?.text = error.errorMessage // works if you added labels
+            //error.errorLabel?.hidden = false
         }
     }
     
@@ -325,12 +325,13 @@ class SetupViewController: UIViewController, UITextFieldDelegate, ValidationDele
         defaults.setInteger(Int(benchInput.text!)!, forKey: defaultsKeys.benchMax)
         defaults.setInteger(Int(squatInput.text!)!, forKey: defaultsKeys.squatMax)
         defaults.setInteger(Int(deadliftInput.text!)!, forKey: defaultsKeys.deadliftMax)
-        
         defaults.synchronize()
-        print((NSUserDefaults.standardUserDefaults()).dynamicType)
         
         let todaysWorkoutViewController = TodaysWorkoutViewController()
-        //let todaysWorkoutViewController = WorkoutTableViewController()
+        // Remove setupView from the stack so that it user can't navigate back to it
+        self.navigationController?.popViewControllerAnimated(false)
+        // Redefine available view controllers by removing setupViewController
+        self.navigationController?.viewControllers = [todaysWorkoutViewController]
         self.navigationController?.pushViewController(todaysWorkoutViewController, animated: false)
     }
     

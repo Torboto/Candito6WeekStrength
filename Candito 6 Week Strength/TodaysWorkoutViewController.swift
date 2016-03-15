@@ -21,15 +21,20 @@ class TodaysWorkoutViewController: UIViewController, UITableViewDelegate, UITabl
         
         let dateFormat = NSDateFormatter()
         dateFormat.dateStyle = NSDateFormatterStyle.FullStyle
-
+        
+        
         let titleLabel = UILabel()
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
         titleLabel.text = dateFormat.stringFromDate(plan.TodaysWorkout!.Date)
         titleLabel.numberOfLines = 2
         titleLabel.font = UIFont.boldSystemFontOfSize(25)
         titleLabel.textAlignment = .Center
-        titleLabel.sizeToFit()
-        self.view.addSubview(titleLabel)
+        //titleLabel.sizeToFit()
+        //titleLabel.backgroundColor
+        //self.view.addSubview(titleLabel)
+        let labelView = UIView(frame: CGRect(x: 0, y: 0, width: self.view.frame.width, height: 40))
+        self.view.addSubview(labelView)
+        labelView.addSubview(titleLabel)
         
         let viewWeek = UIButton()
         viewWeek.translatesAutoresizingMaskIntoConstraints = false
@@ -52,7 +57,8 @@ class TodaysWorkoutViewController: UIViewController, UITableViewDelegate, UITabl
         workoutTableView.sizeToFit()
         //self.view.backgroundColor = UIColor.blueColor()
         self.view.addSubview(workoutTableView)
-        workoutTableView.tableHeaderView = titleLabel
+        //workoutTableView.tableHeaderView = titleLabel
+        workoutTableView.tableHeaderView = labelView
         
         
         let views = [
@@ -63,22 +69,29 @@ class TodaysWorkoutViewController: UIViewController, UITableViewDelegate, UITabl
         ]
         
         // Collect all constraints to send to the superview
+        let vviewC = NSLayoutConstraint.constraintsWithVisualFormat("V:|-64-[workoutTableView]-[viewWeek]-10-|", options:[], metrics: nil, views: views)
+        NSLayoutConstraint.activateConstraints(vviewC)
         
-        //let vtitleLabelC = NSLayoutConstraint.constraintsWithVisualFormat("V:|-70-[titleLabel]", options:[], metrics: nil, views: views)
         let vtitleLabelC = NSLayoutConstraint.constraintsWithVisualFormat("V:|[titleLabel]|", options:[], metrics: nil, views: views)
         NSLayoutConstraint.activateConstraints(vtitleLabelC)
         let htitleLabelC = NSLayoutConstraint.constraintsWithVisualFormat("H:|-[titleLabel]-|", options:[], metrics: nil, views: views)
         NSLayoutConstraint.activateConstraints(htitleLabelC)
         let xtitleLabelC = NSLayoutConstraint(item: titleLabel, attribute: .CenterX, relatedBy: .Equal, toItem: self.view, attribute: .CenterX, multiplier: 1, constant: 0)
         self.view.addConstraint(xtitleLabelC)
+        let ytitleLabelC = NSLayoutConstraint(item: titleLabel, attribute: .CenterY, relatedBy: .Equal, toItem: labelView, attribute: .CenterY, multiplier: 1, constant: 0)
+        self.view.addConstraint(ytitleLabelC)
         
-        let vviewWeekC = NSLayoutConstraint.constraintsWithVisualFormat("V:|-74-[workoutTableView]-[viewWeek]-10-|", options:[], metrics: nil, views: views)
-        NSLayoutConstraint.activateConstraints(vviewWeekC)
-        let hviewWeekC = NSLayoutConstraint.constraintsWithVisualFormat("H:|[workoutTableView]|", options:[], metrics: nil, views: views)
-        NSLayoutConstraint.activateConstraints(hviewWeekC)
         let hworkoutTableViewC = NSLayoutConstraint.constraintsWithVisualFormat("H:|[workoutTableView]|", options:[], metrics: nil, views: views)
         NSLayoutConstraint.activateConstraints(hworkoutTableViewC)
 
+        let vviewWeekC = NSLayoutConstraint.constraintsWithVisualFormat(
+            "V:[viewWeek(50)]-10-|", options:[], metrics: nil, views: views)
+        NSLayoutConstraint.activateConstraints(vviewWeekC)
+        let hviewWeekC = NSLayoutConstraint.constraintsWithVisualFormat(
+            "H:|-20-[viewWeek]-20-|", options: [], metrics: nil, views: views)
+        NSLayoutConstraint.activateConstraints(hviewWeekC)
+        let xviewWeekC = NSLayoutConstraint(item: viewWeek, attribute: .CenterX, relatedBy: .Equal, toItem: self.view, attribute: .CenterX, multiplier: 1, constant: 0)
+        self.view.addConstraint(xviewWeekC)
     }
     
     override func didReceiveMemoryWarning() {
@@ -92,7 +105,11 @@ class TodaysWorkoutViewController: UIViewController, UITableViewDelegate, UITabl
     }
     
     func viewWeekTapped(sender: UIButton) {
-        
+        let weekViewController = WeekViewController()
+        //TODO grab current week from Plan
+        weekViewController.weekNumber = 1
+        // Redefine available view controllers by removing setupViewController
+        self.navigationController?.pushViewController(weekViewController, animated: false)
     }
     
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
@@ -101,16 +118,27 @@ class TodaysWorkoutViewController: UIViewController, UITableViewDelegate, UITabl
     }
     
     func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        //let headerLabel = UILabel(frame: CGRect(x: 5, y: 0, width: self.view.frame.width, height: 18))
+        let labelView = UIView()
+        labelView.backgroundColor = .lightGrayColor()
         let headerLabel = UILabel()
+        headerLabel.translatesAutoresizingMaskIntoConstraints = false
         headerLabel.font = UIFont.boldSystemFontOfSize(18)
         headerLabel.text = plan.TodaysWorkout?.Exercises[section].Name
-        headerLabel.backgroundColor = UIColor.lightGrayColor()
-        tableView.addSubview(headerLabel)
-        return headerLabel
+        
+        tableView.addSubview(labelView)
+        labelView.addSubview(headerLabel)
+        
+        let hheaderLabelC = NSLayoutConstraint.constraintsWithVisualFormat("H:|-[headerLabel]|", options:[], metrics: nil, views: ["headerLabel": headerLabel])
+        NSLayoutConstraint.activateConstraints(hheaderLabelC)
+        let vheaderLabelC = NSLayoutConstraint.constraintsWithVisualFormat("V:|[headerLabel]|", options:[], metrics: nil, views: ["headerLabel": headerLabel])
+        NSLayoutConstraint.activateConstraints(vheaderLabelC)
+        return labelView
     }
     
+    
     func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 22
+        return 30
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -159,20 +187,28 @@ class TodaysWorkoutViewController: UIViewController, UITableViewDelegate, UITabl
         //cell.textLabel?.text = setInfo
         let exercise = plan.TodaysWorkout!.Exercises[indexPath.section]
         var set1Info = String(exercise.Sets[0].Weight)
-        set1Info += " x"
         set1Info += String(exercise.Sets[0].Reps)
         set1.text = set1Info
         var set2Info = String(exercise.Sets[1].Weight)
-        set2Info += " x"
-        set2Info += String(exercise.Sets[1].Reps)
+        if set2Info == "0" {
+            set2Info = "---"
+        } else {
+            set2Info += String(exercise.Sets[1].Reps)
+        }
         set2.text = set2Info
         var set3Info = String(exercise.Sets[2].Weight)
-        set3Info += " x"
-        set3Info += String(exercise.Sets[2].Reps)
+        if set3Info == "0" {
+            set3Info = "---"
+        } else {
+            set3Info += String(exercise.Sets[2].Reps)
+        }
         set3.text = set3Info
         var set4Info = String(exercise.Sets[3].Weight)
-        set4Info += " x"
-        set4Info += String(exercise.Sets[3].Reps)
+        if set4Info == "0" {
+            set4Info = "---"
+        } else {
+            set4Info += String(exercise.Sets[3].Reps)
+        }
         set4.text = set4Info
         
         let views = [
