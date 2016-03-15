@@ -23,6 +23,9 @@ class SetupViewController: UIViewController, UITextFieldDelegate, ValidationDele
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: "dismissKeyboard")
+        view.addGestureRecognizer(tap)
+        
         //TODO Validate startDateInput
         //validator.registerField(stateDateInput, rules: [RequiredRule()])
         validator.registerField(benchInput, rules: [RequiredRule()])
@@ -335,14 +338,26 @@ class SetupViewController: UIViewController, UITextFieldDelegate, ValidationDele
         self.navigationController?.pushViewController(todaysWorkoutViewController, animated: false)
     }
     
+    //Calls this function when the outside of inputs is tapped
     // Hide keyboard on tap outside input
-    func userTappedBackground(sender: AnyObject) {
+    func dismissKeyboard() {
         view.endEditing(true)
     }
     
     // Hide keyboard on 'Return' key press
     func textFieldShouldReturn(textField: UITextField) -> Bool {
-        textField.resignFirstResponder()
+        if textField == self.startDateInput {
+            self.resignFirstResponder()
+            self.benchInput.becomeFirstResponder()
+        } else if textField == self.benchInput {
+            self.squatInput.becomeFirstResponder()
+        } else if textField == self.squatInput {
+            self.resignFirstResponder()
+            self.deadliftInput.becomeFirstResponder()
+        } else if textField == self.deadliftInput {
+            self.resignFirstResponder()
+            dismissKeyboard()
+        }
         return true;
     }
 
@@ -350,7 +365,5 @@ class SetupViewController: UIViewController, UITextFieldDelegate, ValidationDele
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-
-
 }
 
