@@ -20,7 +20,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Override point for customization after application launch.
         let setupViewController = SetupViewController()
         //let week1ViewController = WeekViewController()
-        let todaysWorkoutViewController = TodaysWorkoutViewController()
+        //let todaysWorkoutViewController = TodaysWorkoutViewController()
         
         navController = UINavigationController()
         navController?.setNavigationBarHidden(true, animated: false)
@@ -42,6 +42,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window = UIWindow(frame: UIScreen.mainScreen().bounds)
         window?.backgroundColor = UIColor.whiteColor()
         // TODO Logic to pick which view is root at statup. If NSUSER data exists, go to WeekViewController.
+        
         window?.rootViewController = navController
         // TODO Is this where I pick what I present?
         window?.makeKeyAndVisible()

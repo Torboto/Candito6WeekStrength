@@ -25,6 +25,8 @@ class WeekViewController: UIViewController, UITableViewDelegate, UITableViewData
         let dateFormat = NSDateFormatter()
         dateFormat.dateStyle = NSDateFormatterStyle.FullStyle
         
+        // Label and View to be inserted into TableView as header
+        // View is required to have extra padding around label
         let titleLabel = UILabel()
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
         titleLabel.text = workoutWeek.Workouts[0].Type
@@ -34,27 +36,20 @@ class WeekViewController: UIViewController, UITableViewDelegate, UITableViewData
         self.view.addSubview(labelView)
         labelView.addSubview(titleLabel)
         
-        //let workoutTableViewController = WorkoutTableViewController()
-        //self.addChildViewController(workoutTableViewController)
         let workoutTableView = UITableView(frame: CGRectZero, style: .Grouped)
         workoutTableView.translatesAutoresizingMaskIntoConstraints = false
-        //workoutTableView.frame = CGRect(x: 0, y: 160, width: view.frame.width, height: view.frame.height)
         workoutTableView.delegate = self
         workoutTableView.dataSource = self
         workoutTableView.sizeToFit()
-        //self.view.backgroundColor = UIColor.blueColor()
         self.view.addSubview(workoutTableView)
-        //workoutTableView.tableHeaderView = titleLabel
         workoutTableView.tableHeaderView = labelView
         
-        
+        // Set constraints
         let views = [
-            //"navBar": self.navigationController?.topLayoutGuide,
             "titleLabel": titleLabel,
             "workoutTableView": workoutTableView,
         ]
         
-        // Collect all constraints to send to the superview
         let vviewC = NSLayoutConstraint.constraintsWithVisualFormat("V:|[workoutTableView]-10-|", options:[], metrics: nil, views: views)
         NSLayoutConstraint.activateConstraints(vviewC)
         
@@ -69,36 +64,23 @@ class WeekViewController: UIViewController, UITableViewDelegate, UITableViewData
         
         let hworkoutTableViewC = NSLayoutConstraint.constraintsWithVisualFormat("H:|[workoutTableView]|", options:[], metrics: nil, views: views)
         NSLayoutConstraint.activateConstraints(hworkoutTableViewC)
-        
-        //let vviewWeekC = NSLayoutConstraint.constraintsWithVisualFormat(
-        //    "V:[viewWeek(50)]-10-|", options:[], metrics: nil, views: views)
-        //NSLayoutConstraint.activateConstraints(vviewWeekC)
-        //let hviewWeekC = NSLayoutConstraint.constraintsWithVisualFormat(
-        //    "H:|-20-[viewWeek]-20-|", options: [], metrics: nil, views: views)
-        //NSLayoutConstraint.activateConstraints(hviewWeekC)
     }
     
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
+    // ---------------------------------------------------
+    // TableView Delegate and Datasource extended methods
+    // ---------------------------------------------------
     
-    // TableView Delegate and Datasource functions
-    
+    // Sections in table are equal to the number of workouts in the week
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
         return workoutWeek.Workouts.count
     }
     
+    // Height for header for each section in table, larger for some padding
     func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 30
     }
     
-    // Returns the total number of exercises in an exercise day, which is the number of rows in a section
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return workoutWeek.Workouts[section].Exercises.count
-    }
-    
+    // Create view with label containing day of workout
     func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let dateFormat = NSDateFormatter()
         dateFormat.dateStyle = NSDateFormatterStyle.FullStyle
@@ -120,6 +102,13 @@ class WeekViewController: UIViewController, UITableViewDelegate, UITableViewData
         return labelView
     }
     
+    // Returns the total number of exercises in an exercise day, which is the number of rows in a section
+    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return workoutWeek.Workouts[section].Exercises.count
+    }
+    
+    // Add five labels to cell that contain exercise name, and sets
+    // Ex. |Deadlift| |80 x6| |80 x6| |80 x6| |80x6|
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         tableView.translatesAutoresizingMaskIntoConstraints = false
         let cell = UITableViewCell()
@@ -127,6 +116,7 @@ class WeekViewController: UIViewController, UITableViewDelegate, UITableViewData
         
         let exercise = workoutWeek.Workouts[indexPath.section].Exercises[indexPath.row]
         
+        // Create Views
         let exerciseName: UILabel = UILabel()
         exerciseName.translatesAutoresizingMaskIntoConstraints = false
         exerciseName.font = UIFont.boldSystemFontOfSize(15)
@@ -158,31 +148,29 @@ class WeekViewController: UIViewController, UITableViewDelegate, UITableViewData
         set4.textAlignment = .Center
         cell.contentView.addSubview(set4)
         
+        // Build set text "80 x7"
         var set1Info = String(exercise.Sets[0].Weight)
         set1Info += String(exercise.Sets[0].Reps)
         set1.text = set1Info
         var set2Info = String(exercise.Sets[1].Weight)
-        if set2Info == "0" {
-            set2Info = "---"
-        } else {
-            set2Info += String(exercise.Sets[1].Reps)
-        }
+        set2Info += String(exercise.Sets[1].Reps)
         set2.text = set2Info
         var set3Info = String(exercise.Sets[2].Weight)
-        if set3Info == "0" {
-            set3Info = "---"
-        } else {
-            set3Info += String(exercise.Sets[2].Reps)
-        }
+        set3Info += String(exercise.Sets[2].Reps)
         set3.text = set3Info
         var set4Info = String(exercise.Sets[3].Weight)
-        if set4Info == "0" {
-            set4Info = "---"
-        } else {
-            set4Info += String(exercise.Sets[3].Reps)
-        }
+        set4Info += String(exercise.Sets[3].Reps)
         set4.text = set4Info
         
+        // Change blank set text so it looks nicer
+        let sets = [set1, set2, set3, set4]
+        for set in sets {
+            if set.text == "0" {
+                set.text = "---"
+            }
+        }
+        
+        // Set Constraints
         let views = [
             "exerciseName": exerciseName,
             "set1": set1,
@@ -203,7 +191,11 @@ class WeekViewController: UIViewController, UITableViewDelegate, UITableViewData
         let hsetC = NSLayoutConstraint.constraintsWithVisualFormat("H:|[exerciseName][set1(==exerciseName)][set2(==set1)][set3(==set2)][set4(==set3)]|", options:[], metrics: nil, views: views)
         NSLayoutConstraint.activateConstraints(hsetC)
         
-        
         return cell
+    }
+    
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        // Dispose of any resources that can be recreated.
     }
 }

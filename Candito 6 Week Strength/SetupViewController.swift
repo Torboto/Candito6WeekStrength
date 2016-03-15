@@ -9,7 +9,6 @@
 import UIKit
 import SwiftValidator
 
-
 class SetupViewController: UIViewController, UITextFieldDelegate, ValidationDelegate {
     let validator = Validator()
     let benchUnitLabel = UILabel()
@@ -26,13 +25,13 @@ class SetupViewController: UIViewController, UITextFieldDelegate, ValidationDele
         let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: "dismissKeyboard")
         view.addGestureRecognizer(tap)
         
-        //TODO Validate startDateInput
+        //TODO Validate startDateInput, can paste stuff in currently
         //validator.registerField(stateDateInput, rules: [RequiredRule()])
         validator.registerField(benchInput, rules: [RequiredRule()])
         validator.registerField(squatInput, rules: [RequiredRule()])
         validator.registerField(deadliftInput, rules: [RequiredRule()])
     
-        // Declare elements
+        // Declare/Format views
         let titleLabel = UILabel()
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
         titleLabel.text = "You-Can-Dito\nJonnie Candito's\n6 Week Strength Program"
@@ -72,7 +71,6 @@ class SetupViewController: UIViewController, UITextFieldDelegate, ValidationDele
         weightUnitInput.selectedSegmentIndex = 0
         weightUnitInput.addTarget(self, action: Selector("weightUnitChanged:"), forControlEvents: UIControlEvents.ValueChanged)
         self.view.addSubview(weightUnitInput)
-
         
         benchUnitLabel.translatesAutoresizingMaskIntoConstraints = false
         benchUnitLabel.text = "kg"
@@ -154,17 +152,15 @@ class SetupViewController: UIViewController, UITextFieldDelegate, ValidationDele
         
         let createProgram = UIButton()
         createProgram.translatesAutoresizingMaskIntoConstraints = false
-        createProgram.setTitle("Start Squatting", forState: .Normal)
-        createProgram.backgroundColor = UIColor.blueColor()
+        createProgram.setTitle("Start Squating Deeper", forState: .Normal)
+        createProgram.backgroundColor = darkGreen
         createProgram.layer.cornerRadius = 5
         createProgram.layer.borderWidth = 1
-        createProgram.layer.borderColor = UIColor.blueColor().CGColor
+        createProgram.layer.borderColor = darkGreen.CGColor
         createProgram.addTarget(self, action: Selector("createProgramTapped:"), forControlEvents: UIControlEvents.TouchUpInside)
         self.view.addSubview(createProgram)
         
-        
-        // Declare list of views, add string values for using Visual Format Language
-        //TODO: Dear god figure out how to dynamically build the views dictionary
+        // Set Constraints
         let views = [
             "titleLabel": titleLabel,
             "startDateLabel": startDateLabel,
@@ -227,7 +223,6 @@ class SetupViewController: UIViewController, UITextFieldDelegate, ValidationDele
         let xdeadliftLabelC = NSLayoutConstraint(item: deadliftLabel, attribute: .CenterX, relatedBy: .Equal, toItem: self.view, attribute: .CenterX, multiplier: 1, constant: 0)
         self.view.addConstraint(xdeadliftLabelC)
         
-        
         let hdeadliftInputC = NSLayoutConstraint.constraintsWithVisualFormat(
             "H:|-[leftDeadliftSpacer]-[deadliftInput(75)]-[deadliftUnitLabel]-[rightDeadliftSpacer(==leftDeadliftSpacer)]-|", options: [.AlignAllBaseline], metrics: nil, views: views)
         NSLayoutConstraint.activateConstraints(hdeadliftInputC)
@@ -241,13 +236,14 @@ class SetupViewController: UIViewController, UITextFieldDelegate, ValidationDele
         let xcreateProgramC = NSLayoutConstraint(item: createProgram, attribute: .CenterX, relatedBy: .Equal, toItem: self.view, attribute: .CenterX, multiplier: 1, constant: 0)
         self.view.addConstraint(xcreateProgramC)
     
-        //TEST
+        //TEST data
         benchInput.text = "100"
         squatInput.text = "100"
         deadliftInput.text = "100"
     
     }
     
+    // Change weight unit labels to reflect selected unit in segmented control
     func weightUnitChanged(sender: UISegmentedControl) {
         switch sender.selectedSegmentIndex {
         case 0:
@@ -263,6 +259,7 @@ class SetupViewController: UIViewController, UITextFieldDelegate, ValidationDele
         }
     }
     
+    // Update date input label when datepicker value changes
     func updateStartDateInput(sender: UIDatePicker) {
         let dateFormat = NSDateFormatter()
         dateFormat.dateStyle = NSDateFormatterStyle.FullStyle
@@ -288,35 +285,41 @@ class SetupViewController: UIViewController, UITextFieldDelegate, ValidationDele
             return string == filtered
     }
     
-    
+    // Validate form on submit button tap
     func createProgramTapped(sender: UIButton) {
         validator.validate(self)
     }
     
+    // Highlight invalid inputs, deny submit
     func validationFailed(errors:[UITextField:ValidationError]) {
         // Turn previously failed fields back to gray
         for (field, _) in validator.validations {
-            field.layer.borderColor = UIColor.grayColor().CGColor
+            field.layer.borderColor = darkGreen.CGColor
         }
         // turn the fields to red
         for (field, error) in validator.errors {
             field.layer.borderColor = UIColor.redColor().CGColor
             field.layer.borderWidth = 1
             field.layer.cornerRadius = 5
-            //error.errorLabel?.text = error.errorMessage // works if you added labels
+            //error.errorLabel?.text = error.errorMessage
             //error.errorLabel?.hidden = false
         }
     }
     
+    // If validation successful remove setup view, and push todays workout view
     func validationSuccessful() {
-        //presentViewController(weekViewController, animated: false, completion: nil)
+        saveData()
         
-        //if let destinationVC = segue.destinationViewController as? OtherViewController{
-        //    destinationVC.numberToDisplay = counter
-        //}
-        
-        //TODO Save data locally, send to Week1View
-        // Store simple data locally in User Defaults
+        let todaysWorkoutViewController = TodaysWorkoutViewController()
+        // Remove setupView from the stack so that it user can't navigate back to it
+        self.navigationController?.popViewControllerAnimated(false)
+        // Redefine available view controllers by removing setupViewController
+        self.navigationController?.viewControllers = [todaysWorkoutViewController]
+        self.navigationController?.pushViewController(todaysWorkoutViewController, animated: false)
+    }
+    
+    // Store simple data locally in User Defaults
+    func saveData() {
         let defaults = NSUserDefaults.standardUserDefaults()
         
         let dateFormat = NSDateFormatter()
@@ -329,13 +332,6 @@ class SetupViewController: UIViewController, UITextFieldDelegate, ValidationDele
         defaults.setInteger(Int(squatInput.text!)!, forKey: defaultsKeys.squatMax)
         defaults.setInteger(Int(deadliftInput.text!)!, forKey: defaultsKeys.deadliftMax)
         defaults.synchronize()
-        
-        let todaysWorkoutViewController = TodaysWorkoutViewController()
-        // Remove setupView from the stack so that it user can't navigate back to it
-        self.navigationController?.popViewControllerAnimated(false)
-        // Redefine available view controllers by removing setupViewController
-        self.navigationController?.viewControllers = [todaysWorkoutViewController]
-        self.navigationController?.pushViewController(todaysWorkoutViewController, animated: false)
     }
     
     //Calls this function when the outside of inputs is tapped
@@ -344,7 +340,7 @@ class SetupViewController: UIViewController, UITextFieldDelegate, ValidationDele
         view.endEditing(true)
     }
     
-    // Hide keyboard on 'Return' key press
+    // Hide keyboard on 'Return' key press, or move to next input field
     func textFieldShouldReturn(textField: UITextField) -> Bool {
         if textField == self.startDateInput {
             self.resignFirstResponder()

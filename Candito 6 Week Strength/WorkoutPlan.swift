@@ -97,7 +97,7 @@ struct Plan {
     private mutating func generateWeek1() {
         let calendar = NSCalendar.currentCalendar()
         var dayComponent = NSDateComponents()
-        let blankSet = Set(Weight: 0, Reps: "---")
+        let blankSet = Set(Weight: 0, Reps: "")
 
         // Day 1
         //IF((Inputs!B9="kg"),MROUND((Inputs!B13*0.8),2.5),MROUND((Inputs!B13*0.8),5))
@@ -183,8 +183,6 @@ struct Plan {
     func getWorkoutWeek(weekNumber: Int) -> WorkoutWeek {
         return Week1!
     }
-    
-
 }
 
 //TODO Should these utility funcs be in the struct?

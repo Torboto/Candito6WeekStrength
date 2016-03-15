@@ -9,7 +9,6 @@
 import Foundation
 import UIKit
 
-let plan = Plan.sharedInstance
 
 class TodaysWorkoutViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
@@ -22,16 +21,13 @@ class TodaysWorkoutViewController: UIViewController, UITableViewDelegate, UITabl
         let dateFormat = NSDateFormatter()
         dateFormat.dateStyle = NSDateFormatterStyle.FullStyle
         
-        
+        // Create views
         let titleLabel = UILabel()
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
         titleLabel.text = dateFormat.stringFromDate(plan.TodaysWorkout!.Date)
         titleLabel.numberOfLines = 2
         titleLabel.font = UIFont.boldSystemFontOfSize(25)
         titleLabel.textAlignment = .Center
-        //titleLabel.sizeToFit()
-        //titleLabel.backgroundColor
-        //self.view.addSubview(titleLabel)
         let labelView = UIView(frame: CGRect(x: 0, y: 0, width: self.view.frame.width, height: 40))
         self.view.addSubview(labelView)
         labelView.addSubview(titleLabel)
@@ -39,36 +35,29 @@ class TodaysWorkoutViewController: UIViewController, UITableViewDelegate, UITabl
         let viewWeek = UIButton()
         viewWeek.translatesAutoresizingMaskIntoConstraints = false
         viewWeek.setTitle("Workout Week", forState: .Normal)
-        viewWeek.backgroundColor = UIColor.blueColor()
+        viewWeek.backgroundColor = darkGreen
         viewWeek.layer.cornerRadius = 5
         viewWeek.layer.borderWidth = 1
-        viewWeek.layer.borderColor = UIColor.blueColor().CGColor
+        viewWeek.layer.borderColor = darkGreen.CGColor
         viewWeek.addTarget(self, action: Selector("viewWeekTapped:"), forControlEvents: UIControlEvents.TouchUpInside)
         self.view.addSubview(viewWeek)
         
-        //let workoutTableViewController = WorkoutTableViewController()
-        //self.addChildViewController(workoutTableViewController)
         let workoutTableView = UITableView(frame: CGRectZero, style: .Grouped)
         workoutTableView.translatesAutoresizingMaskIntoConstraints = false
-        //workoutTableView.frame = CGRect(x: 0, y: 160, width: view.frame.width, height: view.frame.height)
         workoutTableView.delegate = self
         workoutTableView.dataSource = self
         workoutTableView.scrollEnabled = false
         workoutTableView.sizeToFit()
-        //self.view.backgroundColor = UIColor.blueColor()
         self.view.addSubview(workoutTableView)
-        //workoutTableView.tableHeaderView = titleLabel
         workoutTableView.tableHeaderView = labelView
         
-        
+        // Set constraints
         let views = [
-            //"navBar": self.navigationController?.topLayoutGuide,
             "titleLabel": titleLabel,
             "workoutTableView": workoutTableView,
             "viewWeek": viewWeek,
         ]
         
-        // Collect all constraints to send to the superview
         let vviewC = NSLayoutConstraint.constraintsWithVisualFormat("V:|-64-[workoutTableView]-[viewWeek]-10-|", options:[], metrics: nil, views: views)
         NSLayoutConstraint.activateConstraints(vviewC)
         
@@ -108,19 +97,29 @@ class TodaysWorkoutViewController: UIViewController, UITableViewDelegate, UITabl
         let weekViewController = WeekViewController()
         //TODO grab current week from Plan
         weekViewController.weekNumber = 1
-        // Redefine available view controllers by removing setupViewController
         self.navigationController?.pushViewController(weekViewController, animated: false)
     }
     
+    // ---------------------------------------------------
+    // TableView Delegate and Datasource extended methods
+    // ---------------------------------------------------
+    
+    // Table has section for each exercise in the workout
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
         return plan.TodaysWorkout!.Exercises.count
     }
     
+    // Height for header before each section which contains the exercise name
+    func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 30
+    }
+    
+    // Create view with label containing exercise name and sets constraints
     func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        //let headerLabel = UILabel(frame: CGRect(x: 5, y: 0, width: self.view.frame.width, height: 18))
         let labelView = UIView()
         labelView.backgroundColor = .lightGrayColor()
+        
         let headerLabel = UILabel()
         headerLabel.translatesAutoresizingMaskIntoConstraints = false
         headerLabel.font = UIFont.boldSystemFontOfSize(18)
@@ -133,35 +132,23 @@ class TodaysWorkoutViewController: UIViewController, UITableViewDelegate, UITabl
         NSLayoutConstraint.activateConstraints(hheaderLabelC)
         let vheaderLabelC = NSLayoutConstraint.constraintsWithVisualFormat("V:|[headerLabel]|", options:[], metrics: nil, views: ["headerLabel": headerLabel])
         NSLayoutConstraint.activateConstraints(vheaderLabelC)
+        
         return labelView
     }
     
-    
-    func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 30
-    }
-    
+    // Sets are all in one row
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
-        //return plan.TodaysWorkout!.Exercises[section].Sets.count
         return 1
     }
     
-    func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return plan.TodaysWorkout?.Exercises[section].Name
-    }
-    
+    // Adds four labels to cell with set information and add constraints
+    // Ex. |80 x6| |80 x6| |80 x6| |80x6|
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        //tableView.dataSource = self
-        //tableView.registerClass(SetCell.self, forCellReuseIdentifier: "SetCell")
         tableView.translatesAutoresizingMaskIntoConstraints = false
         let cell = UITableViewCell()
-        //let cell = tableView.dequeueReusableCellWithIdentifier( "SetCell", forIndexPath: indexPath) as! SetCell
-        //cell.exercise = plan.TodaysWorkout!.Exercises[indexPath.section]
         cell.selectionStyle = .None
         
-        
-        
+        // Create views
         let set1: UILabel = UILabel()
         set1.translatesAutoresizingMaskIntoConstraints = false
         set1.font = UIFont.boldSystemFontOfSize(15)
@@ -183,34 +170,33 @@ class TodaysWorkoutViewController: UIViewController, UITableViewDelegate, UITabl
         set4.textAlignment = .Center
         cell.contentView.addSubview(set4)
         
-        // Configure the cell...
-        //cell.textLabel?.text = setInfo
         let exercise = plan.TodaysWorkout!.Exercises[indexPath.section]
+        
         var set1Info = String(exercise.Sets[0].Weight)
         set1Info += String(exercise.Sets[0].Reps)
         set1.text = set1Info
+        
         var set2Info = String(exercise.Sets[1].Weight)
-        if set2Info == "0" {
-            set2Info = "---"
-        } else {
-            set2Info += String(exercise.Sets[1].Reps)
-        }
+        set2Info += String(exercise.Sets[1].Reps)
         set2.text = set2Info
+        
         var set3Info = String(exercise.Sets[2].Weight)
-        if set3Info == "0" {
-            set3Info = "---"
-        } else {
-            set3Info += String(exercise.Sets[2].Reps)
-        }
+        set3Info += String(exercise.Sets[2].Reps)
         set3.text = set3Info
+        
         var set4Info = String(exercise.Sets[3].Weight)
-        if set4Info == "0" {
-            set4Info = "---"
-        } else {
-            set4Info += String(exercise.Sets[3].Reps)
-        }
+        set4Info += String(exercise.Sets[3].Reps)
         set4.text = set4Info
         
+        // Change blank set text so it looks nicer
+        let sets = [set1, set2, set3, set4]
+        for set in sets {
+            if set.text == "0" {
+                set.text = "---"
+            }
+        }
+        
+        // Set constraints
         let views = [
             "set1": set1,
             "set2": set2,
@@ -227,7 +213,6 @@ class TodaysWorkoutViewController: UIViewController, UITableViewDelegate, UITabl
         NSLayoutConstraint.activateConstraints(vset4C)
         let hsetC = NSLayoutConstraint.constraintsWithVisualFormat("H:|[set1][set2(==set1)][set3(==set2)][set4(==set3)]|", options:[], metrics: nil, views: views)
         NSLayoutConstraint.activateConstraints(hsetC)
-        
         
         return cell
     }
