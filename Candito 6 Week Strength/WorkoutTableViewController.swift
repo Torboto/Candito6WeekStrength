@@ -9,13 +9,13 @@
 import UIKit
 
 class WorkoutTableViewController: UITableViewController {
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        tableView.dataSource = self;
-        tableView.delegate = self;
-    //    
-    //    tableView.registerClass(SetCell.self, forCellReuseIdentifier: "SetCell")
-    }
+    //override func viewDidLoad() {
+    //    super.viewDidLoad()
+    //    tableView.dataSource = self;
+    //    tableView.delegate = self;
+    ////    
+    ////    tableView.registerClass(SetCell.self, forCellReuseIdentifier: "SetCell")
+    //}
     
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
@@ -44,6 +44,7 @@ class WorkoutTableViewController: UITableViewController {
     override func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         return plan.TodaysWorkout?.Exercises[section].Name
     }
+    
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         //tableView.dataSource = self
         //tableView.registerClass(SetCell.self, forCellReuseIdentifier: "SetCell")

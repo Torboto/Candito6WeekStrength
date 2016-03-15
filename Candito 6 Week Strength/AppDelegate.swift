@@ -24,6 +24,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         navController = UINavigationController()
         navController?.setNavigationBarHidden(true, animated: false)
+        navController?.navigationItem.setHidesBackButton(true, animated: false)
+        navController?.navigationItem.hidesBackButton = true
+
         navController?.viewControllers = [setupViewController]
         
         //let viewController = UIViewController()

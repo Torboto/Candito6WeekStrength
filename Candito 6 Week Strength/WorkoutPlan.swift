@@ -73,8 +73,6 @@ struct Plan {
     
     var TodaysWorkout: Workout?
     
-    
-    
     private init() {
         let defaults = NSUserDefaults.standardUserDefaults()
         StartDate = defaults.objectForKey(defaultsKeys.startDate) as! NSDate!
