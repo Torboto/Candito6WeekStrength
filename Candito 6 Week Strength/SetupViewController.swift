@@ -266,23 +266,22 @@ class SetupViewController: UIViewController, UITextFieldDelegate, ValidationDele
         startDateInput.text = dateFormat.stringFromDate(sender.date)
     }
     
-    //TODO: Understand this better, rewrite it
-    func textField(textField: UITextField, shouldChangeCharactersInRange range: NSRange, replacementString string: String) -> Bool {
-            // Create an `NSCharacterSet` set which includes everything but the digits
+    func textField(textField: UITextField, shouldChangeCharactersInRange range: NSRange, replacementString: String) -> Bool {
+            // Create an `NSCharacterSet` set which includes everything but integers
             let inverseSet = NSCharacterSet(charactersInString:"0123456789").invertedSet
+            print(inverseSet)
         
-            // At every character in this "inverseSet" contained in the string,
+            // At every character in inverseSet contained in the string,
             // split the string up into components which exclude the characters
             // in this inverse set
-            let components = string.componentsSeparatedByCharactersInSet(inverseSet)
-        
-            // Rejoin these components
-            let filtered = components.joinWithSeparator("")  // use join("", components) if you are using Swift 1.2
+            // Ex "abc" would be ["", "", ""] but "5" would be ["5"]
+            let components = replacementString.componentsSeparatedByCharactersInSet(inverseSet)
+            let filtered = components.joinWithSeparator("")
         
             // If the original string is equal to the filtered string, i.e. if no
             // inverse characters were present to be eliminated, the input is valid
             // and the statement returns true; else it returns false
-            return string == filtered
+            return replacementString == filtered
     }
     
     // Validate form on submit button tap

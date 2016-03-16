@@ -9,14 +9,6 @@
 import Foundation
 import UIKit
 
-enum defaultsKeys {
-    static let startDate = "StartDate"
-    static let weightUnit = "WeightUnit"
-    static let benchMax = "BenchMax"
-    static let squatMax = "SquatMax"
-    static let deadliftMax = "DeadliftMax"
-    static let currentWeek = "CurrentWeek"
-}
 
 
 // Struct because it doesn't need inheritance, deinitializers, or multipe instances
@@ -52,6 +44,7 @@ struct WorkoutWeek {
     var Workouts = Array<Workout>()
 }
 
+// Singleton struct that contains all data for the workout plan
 struct Plan {
     static let sharedInstance = Plan()
     // Day the program started
